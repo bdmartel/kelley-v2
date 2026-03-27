@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelley Martel — Creating Connections</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jade: #6B9E9B;
+    --jade-dark: #4E7D7A;
+    --jade-light: #8FBFBC;
+    --amber: #C4843E;
+    --amber-light: #D4A46E;
+    --bg: #FAF8F5;
+    --bg-alt: #F0EDEA;
+    --card-bg: #FFFFFF;
+    --text: #1A1A1A;
+    --text-light: #4A4A4A;
+    --text-lighter: #777;
+    --sage: #E8EDEB;
+    --serif: 'Cormorant Garamond', 'Georgia', serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --max-w: 1100px;
+    --section-pad: clamp(3rem, 8vh, 6rem);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+  body {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #3A5E5B;
+    border-bottom: 1px solid #2E4E4B;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-brand {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: rgba(255,255,255,0.8);
+    margin: 5px 0;
+    transition: 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem 4rem;
+    position: relative;
+    background: linear-gradient(160deg, var(--jade) 0%, #5A8E8B 40%, #4E7D7A 100%);
+    color: #fff;
+    border-top: 4px solid #3A5E5B;
+    border-bottom: 4px solid #3A5E5B;
+    box-shadow: inset 0 60px 80px -40px rgba(0,0,0,0.15), inset 0 -60px 80px -40px rgba(0,0,0,0.15);
+  }
+
+  .hero-photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    margin-bottom: 2.5rem;
+    border: 4px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-roles {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+  }
+  .hero-roles span { margin: 0 0.75rem; color: rgba(255,255,255,0.4); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    opacity: 0.6;
+  }
+  .scroll-hint::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 2px;
+    animation: scrollDown 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollDown {
+    0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: var(--section-pad) 1.5rem;
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--jade);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  .centered { text-align: center; }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--jade-light);
+    margin: 3rem auto;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-text p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .about-text .incomplete {
+    color: var(--text-lighter);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  .mission {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--sage);
+    border-radius: 8px;
+    border-left: 3px solid var(--jade);
+  }
+
+  .mission p {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  /* ART GALLERY */
+  .gallery-section {
+    background: #DAE2E0;
+    margin: 0;
+    max-width: 100%;
+    padding: var(--section-pad) 1.5rem;
+  }
+  .gallery-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .gallery-intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 650px;
+    color: #1A1A1A;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-tab {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #4E7D7A;
+    background: rgba(255,255,255,0.2);
+    color: #2E4E4B;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .filter-tab:hover { border-color: #3A5E5B; color: #1A1A1A; background: rgba(255,255,255,0.4); }
+  .filter-tab.active {
+    background: var(--jade);
+    border-color: var(--jade);
+    color: #fff;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .painting-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .painting-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+  .painting-card[hidden] { display: none; }
+
+  .painting-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .painting-info {
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+
+  .painting-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .painting-details {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .inquire-btn {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 0.5rem 1.2rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    background: var(--jade);
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .inquire-btn:hover { background: var(--jade-dark); }
+
+  .placeholder-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--sage) 0%, #d0d8d6 100%);
+  }
+  .placeholder-img span {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-lighter);
+  }
+  .painting-card.coming-soon { cursor: default; opacity: 0.7; }
+  .painting-card.coming-soon:hover { transform: none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+  }
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+  }
+  .lightbox-info .painting-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: #fff;
+  }
+  .lightbox-info .painting-details {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .lightbox-close:hover { color: #fff; }
+
+  /* OFFERINGS */
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .offering-card {
+    padding: 0;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--sage);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .offering-card:hover { border-color: var(--jade-light); }
+
+  .offering-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .offering-body {
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .offering-title {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .offering-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-light);
+  }
+
+  .what-to-expect {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--sage);
+    border-radius: 6px;
+  }
+
+  .what-to-expect h4 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    color: var(--jade-dark);
+  }
+
+  .what-to-expect p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-light);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding-bottom: calc(var(--section-pad) + 2rem);
+  }
+
+  .contact-info {
+    margin-top: 2rem;
+  }
+
+  .contact-info a {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--jade-dark);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+  .contact-info a:hover { color: var(--amber); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    background: #3A5E5B;
+    border-top: 4px solid #2E4E4B;
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: #3A5E5B;
+      padding: 1.5rem 2rem;
+      gap: 1.2rem;
+      border-bottom: 1px solid #2E4E4B;
+    }
+    .nav-toggle { display: block; }
+    .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .hero-photo { width: 160px; height: 160px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .offerings-grid { grid-template-columns: 1fr; }
+    .filter-tabs { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">Kelley Martel</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeNav()">About</a></li>
+      <li><a href="#art" onclick="closeNav()">Art</a></li>
+      <li><a href="#offerings" onclick="closeNav()">Offerings</a></li>
+      <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <img src="google-doc-dec2024/images/image7.jpg" alt="Kelley Martel" class="hero-photo">
+  <h1>KELLEY MARTEL</h1>
+  <p class="hero-tagline">Creating Connections</p>
+  <p class="hero-roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label centered">About</p>
+  <h2 class="section-title centered">Weaving Connections with<br>the Seen and Unseen</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I grew up in the small towns and fields and forests of New Hampshire. The timeless time I spent wandering over stone walls, and resting by beaver ponds, allowed me to weave a deep connection with the natural world, and also with all that exists beyond what meets the naked eye.</p>
+      <p>Early on, I was drawn to connecting with presences that I felt, but could not see. I was consistently delighted by how they seemed to work through, and with, the natural world. I became conscious of how a sudden flight of a hawk was directly related to the thought I had. I became aware of signs and symbols and synchronicities.</p>
+      <p>Alongside my deepening relationship with nature, I began attending the yearly dowsers convention, a gathering of people, mostly adults, who validated within my young mind the reality of connection with consciousness in all of life and in the unseen world. I was shown that the ways in which to communicate with all of life, are limitless.</p>
+      <p class="incomplete">[Bio continues — Kelley is writing the rest]</p>
+    </div>
+  </div>
+  <div class="mission">
+    <p>Creating Connections is an alchemical experience that begins with an inquiry and an intention. This sets in motion a conversation, with one's own spirit and whatever one considers to be the divine, or with one's spirit and spirits that exist without a body.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ART GALLERY -->
+<div class="gallery-section" id="art">
+  <div class="gallery-inner">
+    <p class="section-label" style="font-size:0.8rem; font-weight:500; color:#2E4E4B;">Gallery</p>
+    <h2 class="section-title" style="font-size:clamp(2rem, 4vw, 3rem); font-weight:600; color:#1A1A1A;">Art</h2>
+    <p class="gallery-intro">Welcome to my creations! To create is to live, to inspire, to feel, to heal, to connect, to journey, to awaken and love.</p>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterArt('all')">All Work</button>
+      <button class="filter-tab" onclick="filterArt('canvas')">Paintings on Canvas</button>
+      <button class="filter-tab" onclick="filterArt('paper')">Paintings on Paper</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="google-doc-dec2024/images/image1.jpg" alt="Peace When All Is Changing" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">Peace When All Is Changing</div>
+          <div class="painting-details">Acrylic on Canvas &middot; 36" &times; 48"</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="google-doc-dec2024/images/image2.jpg" alt="Contemplating Birth" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">Contemplating Birth</div>
+          <div class="painting-details">Acrylic on Canvas &middot; 36" &times; 48"</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="google-doc-dec2024/images/image6.jpg" alt="Heart Stream" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">Heart Stream</div>
+          <div class="painting-details">Acrylic on Canvas &middot; 36" &times; 48"</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="google-doc-dec2024/images/image5.jpg" alt="Joy" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">Joy</div>
+          <div class="painting-details">Acrylic on Canvas &middot; 48" &times; 48"</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="google-doc-dec2024/images/image4.jpg" alt="French Cafe" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">French Cafe</div>
+          <div class="painting-details">Acrylic on Canvas &middot; 36" &times; 48"</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+
+      <div class="painting-card coming-soon" data-type="canvas">
+        <div class="painting-img placeholder-img"><span>Coming Soon</span></div>
+        <div class="painting-info">
+          <div class="painting-title">New Work Coming Soon</div>
+          <div class="painting-details">Acrylic on Canvas</div>
+        </div>
+      </div>
+
+      <div class="painting-card coming-soon" data-type="paper">
+        <div class="painting-img placeholder-img"><span>Coming Soon</span></div>
+        <div class="painting-info">
+          <div class="painting-title">New Work Coming Soon</div>
+          <div class="painting-details">Mixed Media on Paper</div>
+        </div>
+      </div>
+
+      <div class="painting-card coming-soon" data-type="paper">
+        <div class="painting-img placeholder-img"><span>Coming Soon</span></div>
+        <div class="painting-info">
+          <div class="painting-title">New Work Coming Soon</div>
+          <div class="painting-details">Mixed Media on Paper</div>
+        </div>
+      </div>
+
+      <!-- TEMPLATE: Copy this block, fill in details, remove "coming-soon" class, add onclick="openLightbox(this)"
+      <div class="painting-card" data-type="canvas" onclick="openLightbox(this)">
+        <img src="images/FILENAME.jpg" alt="TITLE" class="painting-img">
+        <div class="painting-info">
+          <div class="painting-title">TITLE</div>
+          <div class="painting-details">MEDIUM &middot; SIZE</div>
+          <a class="inquire-btn" href="#" onclick="event.stopPropagation()">Inquire About Print</a>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <p style="text-align:center; margin-top:2.5rem; font-family:var(--serif); font-size:1.05rem; font-style:italic; color:var(--text-light);">All paintings are also available as prints. Sizes and details coming soon.</p>
+  </div>
+</div>
+
+<!-- DIVIDER BETWEEN ART AND OFFERINGS -->
+<div style="width:100%; height:4px; background: linear-gradient(90deg, transparent, var(--jade), var(--jade-dark), var(--jade), transparent);"></div>
+
+<!-- OFFERINGS -->
+<section id="offerings">
+  <p class="section-label" style="color: var(--amber);">Offerings</p>
+  <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--jade-dark);">Sessions &amp; Readings</h2>
+
+  <div class="offerings-grid">
+    <div class="offering-card">
+      <img src="images/mediumship.jpg" alt="Spirit Connection / Mediumship" class="offering-img">
+      <div class="offering-body">
+        <h3 class="offering-title">Spirit Connection / Mediumship</h3>
+        <p>Mediumship is the act of connecting with spirits who no longer are in body. It is something each one of us is capable of doing, yet we are not commonly made aware of this. There are a growing number of people who are opening to these skills, allowing more spirits to communicate with their loved ones.</p>
+        <div class="what-to-expect">
+          <h4>What to Expect in a Session</h4>
+          <p>Before we even start I will have set the intention to connect with a spirit who wishes to connect. My intention always includes that the session is in a container of love and what is in the best and highest good for you.</p>
+          <p>The session may include a visit from a loved one or multiple loved ones, including pets or spirits who act as guardians to you from the spirit world. Occasionally someone who is still in body may pop in to say hello as a spirit. This can be a delightful surprise as well.</p>
+        </div>
+      </div>
+    </div>
+    <div class="offering-card">
+      <img src="images/readings.jpg" alt="Intuitive Art Card Readings" class="offering-img">
+      <div class="offering-body">
+        <h3 class="offering-title">Intuitive Art Card Readings</h3>
+        <p>A session may include a visit from a loved one or several who have died, including pets, or from spirits who act as guardians to you from the spirit world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="section-label">Connect</p>
+  <h2 class="section-title">Get in Touch</h2>
+  <div class="contact-info">
+    <a href="tel:+14158450317">415-845-0317</a>
+    <a href="mailto:Kelleeey@yahoo.com">Kelleeey@yahoo.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span style="color:rgba(255,255,255,0.6)">&copy; 2026 Kelley Martel &middot; Creating Connections</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-info">
+    <div class="painting-title" id="lightboxTitle"></div>
+    <div class="painting-details" id="lightboxDetails"></div>
+  </div>
+</div>
+
+<script>
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile nav toggle
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navToggle').classList.toggle('open');
+  }
+  function closeNav() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navToggle').classList.remove('open');
+  }
+
+  // Gallery filter
+  function filterArt(type) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.painting-card').forEach(card => {
+      if (type === 'all' || card.dataset.type === type) {
+        card.hidden = false;
+      } else {
+        card.hidden = true;
+      }
+    });
+  }
+
+  // Lightbox
+  function openLightbox(card) {
+    const img = card.querySelector('.painting-img');
+    const title = card.querySelector('.painting-title').textContent;
+    const details = card.querySelector('.painting-details').textContent;
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightboxImg').alt = title;
+    document.getElementById('lightboxTitle').textContent = title;
+    document.getElementById('lightboxDetails').textContent = details;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Wire up inquire buttons with mailto links
+  document.querySelectorAll('.painting-card:not(.coming-soon) .inquire-btn').forEach(btn => {
+    const title = btn.closest('.painting-info').querySelector('.painting-title').textContent;
+    const subject = encodeURIComponent('Inquiry about "' + title + '"');
+    const body = encodeURIComponent('Hi Kelley,\n\nI\'m interested in a print of "' + title + '." Could you share details on available sizes and pricing?\n\nThank you!');
+    btn.href = 'mailto:Kelleeey@yahoo.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+</body>
+</html>
