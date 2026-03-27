@@ -165,44 +165,12 @@
   .hero-roles span { margin: 0 0.75rem; color: rgba(255,255,255,0.4); }
 
   .hero-motif {
-    margin-top: 2rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0.8;
-    position: relative;
-    width: 300px;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 24px;
-    height: 40px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 12px;
-    opacity: 0.6;
-  }
-  .scroll-hint::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: rgba(255,255,255,0.6);
-    border-radius: 2px;
-    animation: scrollDown 1.5s ease-in-out infinite;
-  }
-  @keyframes scrollDown {
-    0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
-  }
-
   /* SECTIONS */
   section {
     padding: var(--section-pad) 1.5rem;
