@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelley Martel — Website Build Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jade: #6B9E9B;
+    --jade-dark: #4E7D7A;
+    --jade-light: #8FBFBC;
+    --amber: #C4843E;
+    --bg: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --text: #1A1A1A;
+    --text-light: #4A4A4A;
+    --text-lighter: #777;
+    --sage: #E8EDEB;
+    --serif: 'Cormorant Garamond', 'Georgia', serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  header {
+    background: #3A5E5B;
+    color: #fff;
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  header h1 {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+  }
+  header a { color: var(--jade-light); }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .night {
+    margin-bottom: 3rem;
+  }
+  .night-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--jade-light);
+  }
+  .night-date {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--jade);
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .night-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .phase {
+    margin-bottom: 2rem;
+  }
+  .phase-title {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--jade-dark);
+    margin-bottom: 0.75rem;
+  }
+  .phase-time {
+    color: var(--text-lighter);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+
+  .items {
+    list-style: none;
+    padding-left: 1.2rem;
+    border-left: 2px solid var(--sage);
+  }
+  .items li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+  .items li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 0.85rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--jade-light);
+    border: 2px solid var(--bg);
+  }
+
+  .version-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+  .version-table th {
+    text-align: left;
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-lighter);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--sage);
+  }
+  .version-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--sage);
+    vertical-align: top;
+  }
+  .version-table td:first-child {
+    font-weight: 500;
+    color: var(--jade-dark);
+    white-space: nowrap;
+  }
+  .version-table tr:last-child td { border-bottom: none; }
+  .version-table .kelley-quote {
+    font-style: italic;
+    color: var(--text-lighter);
+    font-size: 0.8rem;
+  }
+
+  .callout {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.5rem;
+    background: var(--sage);
+    border-radius: 8px;
+    border-left: 3px solid var(--jade);
+  }
+  .callout p {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .decisions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .decisions span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    background: rgba(107, 158, 155, 0.15);
+    color: var(--jade-dark);
+  }
+
+  .still-needed {
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+  }
+  .still-needed li {
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  .still-needed li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7rem;
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--amber);
+    border-radius: 2px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-lighter);
+    background: #3A5E5B;
+    color: rgba(255,255,255,0.5);
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.6rem; }
+    .night-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .version-table { font-size: 0.75rem; }
+    .version-table .kelley-quote { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Creating Connections</h1>
+  <p>Website Build Timeline &mdash; Kelley Martel</p>
+  <p style="margin-top:1rem; font-size:0.85rem;">
+    <a href="https://bdmartel.github.io/kelley-v1/" style="color:var(--jade-light);">Night 1 Site</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://bdmartel.github.io/kelley-v2/" style="color:var(--jade-light);">Night 2 Site</a>
+  </p>
+</header>
+
+<div class="container">
+
+<!-- NIGHT 1 -->
+<div class="night">
+  <div class="night-header">
+    <span class="night-date">March 25, 2026</span>
+    <h2 class="night-title">Night 1 &mdash; From Wireframe to Working Site</h2>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Research &amp; Setup <span class="phase-time">8:00 &ndash; 9:30 PM</span></h3>
+    <ul class="items">
+      <li>Created project folder, extracted Kelley's iMessages</li>
+      <li>Transcribed 2 voice memos &mdash; unified vision: art + mediumship as "the whole me"</li>
+      <li>Found hand-drawn wireframe with site structure</li>
+      <li>Excavated Dec 2024 Google Doc: partial bio, mission statement, 5 catalogued paintings with titles and dimensions</li>
+      <li>Found 16 artwork images in Google Drive, 13 more in iCloud Notes</li>
+      <li>Pulled Gmail history: $500 build quote, jade green palette preference, reference sites</li>
+      <li>Created consolidated brief (BRIEF.md) with current direction + historical content</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Build &amp; Deploy <span class="phase-time">9:30 &ndash; 10:15 PM</span></h3>
+    <ul class="items">
+      <li>Built single-file HTML prototype: jade/teal palette, Cormorant Garamond headings</li>
+      <li>Hero section with circular photo, "Creating Connections / Spirit Medium &middot; Artist"</li>
+      <li>About section with bio + mission statement callout</li>
+      <li>Art gallery with 5 paintings, filter tabs (canvas/paper), click-to-lightbox</li>
+      <li>Offerings section: mediumship + intuitive readings</li>
+      <li>Deployed to GitHub Pages &mdash; sent link to Kelley: <a href="https://bdmartel.github.io/kelley-v1/" style="color:var(--jade-dark);">bdmartel.github.io/kelley-v1</a></li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Live Feedback Loop <span class="phase-time">10:15 &ndash; 11:45 PM</span></h3>
+    <p style="margin-bottom:1rem; font-size:0.9rem; color:var(--text-light);">15 iterations driven by Kelley's real-time voice memos via iMessage:</p>
+    <table class="version-table">
+      <thead>
+        <tr><th>Version</th><th>Change</th><th class="kelley-quote">Kelley Said</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>v1.1</td><td>Teal hero background, darker fonts, offering images</td><td class="kelley-quote">"more solid background," "font darker"</td></tr>
+        <tr><td>v1.2</td><td>"Creating Connections" bolder, centered About heading, first-person bio</td><td class="kelley-quote">"can it be bolder," confirmed 1st person</td></tr>
+        <tr><td>v1.3</td><td>Dark teal nav bar</td><td class="kelley-quote">"band on top be something other than white"</td></tr>
+        <tr><td>v1.4</td><td>"Creating Connections" bigger</td><td class="kelley-quote">"a bit bigger but not as big as Kelley Martel"</td></tr>
+        <tr><td>v1.5</td><td>Divider between art &amp; offerings, bigger offerings heading</td><td class="kelley-quote">"some kind of divider," "make offerings bigger"</td></tr>
+        <tr><td>v1.6</td><td>Prints available note at gallery bottom</td><td class="kelley-quote">"paintings available in prints"</td></tr>
+        <tr><td>v1.7</td><td>Gallery heading bigger/bolder</td><td class="kelley-quote">"can Gallery be bolder"</td></tr>
+        <tr><td>v1.8</td><td>Real "What to Expect" copy from Kelley</td><td class="kelley-quote">Sent screenshot of handwritten copy</td></tr>
+        <tr><td>v1.9</td><td>Darker gallery background</td><td class="kelley-quote">"darker and more color around paintings"</td></tr>
+        <tr><td>v1.10</td><td>Dark teal footer band</td><td class="kelley-quote">"a band of green at bottom too"</td></tr>
+        <tr><td>v1.11</td><td>Much darker gallery background</td><td class="kelley-quote">"much darker around paintings please"</td></tr>
+        <tr><td>v1.12</td><td>Gallery background in sage spectrum</td><td class="kelley-quote">"in same spectrum as the sage"</td></tr>
+        <tr><td>v1.13</td><td>Dark band at hero bottom</td><td class="kelley-quote">"another band of darker green on bottom"</td></tr>
+        <tr><td>v1.14</td><td>Darker gallery text for contrast</td><td class="kelley-quote">"Gallery needs to be darker on green"</td></tr>
+        <tr><td>v1.15</td><td>Match top/bottom hero bands</td><td class="kelley-quote">"same width as top green band on bottom"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <p>"It was a great productive session and it was very quick and living, a living system felt like."</p>
+    <p style="font-style:normal; font-size:0.85rem; color:var(--text-lighter); margin-top:0.5rem;">&mdash; Kelley, end of Night 1</p>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Decisions Confirmed</h3>
+    <div class="decisions">
+      <span>First-person bio</span>
+      <span>Art + mediumship unified</span>
+      <span>Jade/teal palette</span>
+      <span>"Creating Connections" brand</span>
+      <span>Squarespace cancelled</span>
+    </div>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">End of Night &mdash; Also Accomplished</h3>
+    <ul class="items">
+      <li>Archived old Squarespace site before subscription cancellation (ends April 9)</li>
+      <li>Clarified: teawithaphoenix.com was for a podcast, not this website</li>
+      <li>Unknown subscription (WordPress?) &mdash; Kelley will check her account</li>
+    </ul>
+  </div>
+</div>
+
+<!-- NIGHT 2 -->
+<div class="night">
+  <div class="night-header">
+    <span class="night-date">March 26, 2026</span>
+    <h2 class="night-title">Night 2 &mdash; New Features &amp; Planning</h2>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Catch-Up</h3>
+    <ul class="items">
+      <li>Processed overnight messages &mdash; Kelley kept sending after "goodnight"</li>
+      <li>Transcribed 2 new voice memos with feature requests</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">New Requests from Kelley</h3>
+    <ul class="items">
+      <li>Print ordering / purchase option on each painting</li>
+      <li>"Coming Soon" placeholder slots for new paintings</li>
+      <li>New write-up for Intuitive Art Card Readings (in Google Doc)</li>
+      <li>"Depression Rebel" section &mdash; photo and write-up</li>
+      <li>Decorative element at hero bottom (butterfly/art border &mdash; TBD)</li>
+      <li>Ability to add new paintings herself</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Built &amp; Deployed</h3>
+    <ul class="items">
+      <li>New repo: <a href="https://bdmartel.github.io/kelley-v2/" style="color:var(--jade-dark);">bdmartel.github.io/kelley-v2</a> &mdash; Night 2 forward</li>
+      <li>v2.0 ready: "Inquire About Print" buttons, Coming Soon placeholders, gallery template</li>
+      <li>Each session gets its own snapshot so the evolution is visible</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <h3 class="phase-title">Still Needed</h3>
+    <ul class="still-needed">
+      <li>Finished bio copy</li>
+      <li>Intuitive Art Card Readings description (in Google Doc &mdash; needs access)</li>
+      <li>"Depression Rebel" content</li>
+      <li>Paintings on paper photos</li>
+      <li>Domain decision</li>
+      <li>E-commerce setup for prints</li>
+      <li>Phone call to finalize details</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  Kelley Martel &middot; Creating Connections &middot; Build Timeline
+</footer>
+
+</body>
+</html>
