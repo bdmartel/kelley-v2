@@ -167,6 +167,12 @@
   .hero-motif {
     margin-top: 2rem;
     opacity: 0.8;
+    position: relative;
+    width: 300px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .scroll-hint {
@@ -591,9 +597,77 @@
   <p class="hero-tagline">Creating Connections</p>
   <p class="hero-roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
   <div class="hero-motif" aria-hidden="true">
-    <img src="images/butterfly.png" alt="" style="width:70px; height:auto; opacity:0.85; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2)); transform:rotate(12deg);">
+    <svg width="280" height="90" viewBox="0 0 280 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- flight path — graceful dotted curve -->
+      <path d="M20 60 C45 70, 65 45, 90 52 C115 58, 125 30, 140 42 C155 54, 170 28, 185 38 C200 48, 220 32, 245 40 C255 44, 260 36, 265 32" stroke="rgba(255,255,255,0.06)" stroke-width="0.7" stroke-dasharray="4 6" fill="none"/>
+
+      <!-- energy dots along the path -->
+      <circle cx="20" cy="60" r="1" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="50" cy="60" r="1.5" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="75" cy="48" r="1" fill="rgba(255,255,255,0.09)"/>
+      <circle cx="100" cy="52" r="2" fill="rgba(255,255,255,0.1)"/>
+      <circle cx="120" cy="42" r="1.5" fill="rgba(255,255,255,0.12)"/>
+
+      <!-- CENTER: butterfly body -->
+      <circle cx="140" cy="42" r="3" fill="rgba(255,255,255,0.22)"/>
+      <circle cx="140" cy="36" r="1.8" fill="rgba(255,255,255,0.16)"/>
+      <circle cx="140" cy="48" r="1.8" fill="rgba(255,255,255,0.16)"/>
+      <line x1="140" y1="30" x2="140" y2="55" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+
+      <!-- left wing — arcs -->
+      <path d="M140 42 C132 28, 108 16, 92 22" stroke="rgba(255,255,255,0.14)" stroke-width="1" fill="none"/>
+      <path d="M140 42 C130 30, 102 20, 84 28" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" fill="none"/>
+      <path d="M140 42 C134 32, 115 22, 100 24" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+      <!-- left lower wing -->
+      <path d="M140 42 C132 52, 114 60, 105 56" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
+      <path d="M140 42 C130 54, 110 64, 98 60" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+      <!-- left wing dots -->
+      <circle cx="92" cy="22" r="2" fill="rgba(255,255,255,0.11)"/>
+      <circle cx="84" cy="28" r="1.5" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="105" cy="56" r="1.5" fill="rgba(255,255,255,0.09)"/>
+      <circle cx="112" cy="30" r="1" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="118" cy="48" r="1" fill="rgba(255,255,255,0.07)"/>
+
+      <!-- right wing — arcs -->
+      <path d="M140 42 C148 28, 172 16, 188 22" stroke="rgba(255,255,255,0.14)" stroke-width="1" fill="none"/>
+      <path d="M140 42 C150 30, 178 20, 196 28" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" fill="none"/>
+      <path d="M140 42 C146 32, 165 22, 180 24" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+      <!-- right lower wing -->
+      <path d="M140 42 C148 52, 166 60, 175 56" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
+      <path d="M140 42 C150 54, 170 64, 182 60" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+      <!-- right wing dots -->
+      <circle cx="188" cy="22" r="2" fill="rgba(255,255,255,0.11)"/>
+      <circle cx="196" cy="28" r="1.5" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="175" cy="56" r="1.5" fill="rgba(255,255,255,0.09)"/>
+      <circle cx="168" cy="30" r="1" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="162" cy="48" r="1" fill="rgba(255,255,255,0.07)"/>
+
+      <!-- antennae -->
+      <path d="M140 36 C136 26, 130 16, 126 10" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" fill="none"/>
+      <path d="M140 36 C144 26, 150 16, 154 10" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" fill="none"/>
+      <circle cx="126" cy="10" r="1.5" fill="rgba(255,255,255,0.1)"/>
+      <circle cx="154" cy="10" r="1.5" fill="rgba(255,255,255,0.1)"/>
+
+      <!-- energy radiating from center -->
+      <circle cx="140" cy="42" r="16" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" fill="none"/>
+      <circle cx="140" cy="42" r="28" stroke="rgba(255,255,255,0.03)" stroke-width="0.5" fill="none"/>
+
+      <!-- continuing path dots -->
+      <circle cx="160" cy="32" r="1.5" fill="rgba(255,255,255,0.1)"/>
+      <circle cx="185" cy="38" r="1.5" fill="rgba(255,255,255,0.09)"/>
+      <circle cx="210" cy="36" r="1" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="235" cy="38" r="1" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="255" cy="36" r="1" fill="rgba(255,255,255,0.06)"/>
+      <circle cx="265" cy="32" r="0.8" fill="rgba(255,255,255,0.05)"/>
+
+      <!-- scatter — spirit energy -->
+      <circle cx="128" cy="20" r="0.7" fill="rgba(255,255,255,0.05)"/>
+      <circle cx="152" cy="18" r="0.7" fill="rgba(255,255,255,0.05)"/>
+      <circle cx="135" cy="58" r="0.7" fill="rgba(255,255,255,0.04)"/>
+      <circle cx="148" cy="55" r="0.7" fill="rgba(255,255,255,0.04)"/>
+    </svg>
   </div>
-  <div class="scroll-hint"></div>
+
 </section>
 
 <!-- ABOUT -->

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Motif — Design History</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #FAF8F5; color: #1A1A1A; }
+
+  header {
+    background: #3A5E5B;
+    color: #fff;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  header p { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+  .container { max-width: 600px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .iteration {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #E8EDEB;
+    padding-bottom: 2rem;
+  }
+  .iteration:last-child { border-bottom: none; }
+
+  .iter-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6B9E9B;
+    margin-bottom: 0.5rem;
+  }
+  .iter-label .current {
+    background: #6B9E9B;
+    color: #fff;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .comment {
+    background: #E8EDEB;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    color: #4A4A4A;
+    line-height: 1.5;
+  }
+  .comment .who {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #6B9E9B;
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-preview {
+    max-width: 100%;
+    margin: 0.75rem 0;
+    padding: 2.5rem 1rem;
+    background: linear-gradient(160deg, #6B9E9B 0%, #5A8E8B 40%, #4E7D7A 100%);
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+    border-top: 4px solid #3A5E5B;
+    border-bottom: 12px solid #2E4E4B;
+    box-shadow: inset 0 40px 60px -30px rgba(0,0,0,0.15), inset 0 -40px 60px -30px rgba(0,0,0,0.15);
+  }
+  .hero-preview .roles {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1rem;
+  }
+  .hero-preview .roles span { margin: 0 0.4rem; color: rgba(255,255,255,0.4); }
+
+  .motif-area {
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Hero Motif — Design History</h1>
+  <p>Most recent at top</p>
+</header>
+
+<div class="container">
+
+<!-- KELLEY FEEDBACK BOX -->
+<div style="background:#fff; border:1px solid #E8EDEB; border-radius:8px; padding:1.5rem; margin-bottom:2.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+  <p style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#6B9E9B; font-weight:500; margin-bottom:0.75rem;">Notes</p>
+  <div id="noteThread" style="margin-bottom:1rem;"></div>
+  <input id="noteName" type="hidden" value="Kelley">
+  <textarea id="kelleyNote" placeholder="Type your thoughts here..." style="width:100%; min-height:80px; padding:0.8rem; border:1px solid #E8EDEB; border-radius:6px; font-family:'Inter',sans-serif; font-size:0.95rem; color:#1A1A1A; resize:vertical; line-height:1.6; outline:none;" onfocus="this.style.borderColor='#6B9E9B'" onblur="this.style.borderColor='#E8EDEB'"></textarea>
+  <button id="sendBtn" onclick="sendNote()" style="margin-top:0.75rem; padding:0.6rem 1.5rem; background:#6B9E9B; color:#fff; border:none; border-radius:4px; font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer;">Send</button>
+</div>
+
+<script>
+var notes = [];
+// Restore saved name
+var savedName = localStorage.getItem('noteName');
+if (savedName) document.addEventListener('DOMContentLoaded', function() {
+  var el = document.getElementById('noteName');
+  if (el) el.value = savedName;
+});
+loadNotes();
+
+function loadNotes() {
+  fetch('/notes', { cache: 'no-cache' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      notes = data;
+      renderNotes();
+    }).catch(function() {
+      notes = JSON.parse(localStorage.getItem('kelleyNotes') || '[]');
+      renderNotes();
+    });
+}
+
+function renderNotes() {
+  var thread = document.getElementById('noteThread');
+  if (!notes.length) { thread.innerHTML = '<p style="font-size:0.85rem; color:#999; font-style:italic;">No notes yet — type below to start.</p>'; return; }
+  var html = '';
+  notes.forEach(function(n) {
+    var fromName = (n.from || 'anonymous').charAt(0).toUpperCase() + (n.from || 'anonymous').slice(1);
+    var isBen = n.from === 'ben';
+    var bg = isBen ? '#EBF4F3' : '#E8EDEB';
+    var label = fromName;
+    var color = isBen ? '#4E7D7A' : '#4A4A4A';
+    html += '<div style="background:' + bg + '; border-radius:8px; padding:0.7rem 1rem; margin-bottom:0.5rem;">';
+    html += '<div style="font-size:0.7rem; font-weight:500; color:' + color + '; margin-bottom:0.2rem;">' + label + ' <span style="color:#999; font-weight:400;">' + (n.time || '') + '</span></div>';
+    html += '<div style="font-size:0.9rem; color:#1A1A1A; line-height:1.5; white-space:pre-wrap;">' + (n.text || '') + '</div>';
+    html += '</div>';
+  });
+  // Show waiting message if last note is from kelley
+  if (notes.length && notes[notes.length - 1].from !== 'ben') {
+    html += '<p style="font-size:0.75rem; color:#999; font-style:italic; margin-top:0.3rem;">Waiting for response... this page updates automatically.</p>';
+  }
+  thread.innerHTML = html;
+}
+
+function sendNote() {
+  var textarea = document.getElementById('kelleyNote');
+  var text = textarea.value.trim();
+  if (!text) return;
+
+  var now = new Date();
+  var time = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+  var name = document.getElementById('noteName').value.trim() || 'Anonymous';
+  localStorage.setItem('noteName', name);
+  var note = { from: name.toLowerCase(), text: text, time: time };
+
+  fetch('/notes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(note)
+  }).then(function() {
+    textarea.value = '';
+    loadNotes();
+  }).catch(function() {
+    // Fallback to localStorage
+    notes.push(note);
+    localStorage.setItem('kelleyNotes', JSON.stringify(notes));
+    renderNotes();
+    textarea.value = '';
+  });
+}
+
+// Poll for new notes every 5 seconds
+setInterval(loadNotes, 5000);
+</script>
+
+<!-- ITERATION 7: C1+C3 hybrid — Wing Geometry + Flight Path -->
+<div class="iteration">
+  <p class="iter-label">Iteration 7 <span class="current">Current</span></p>
+  <div class="comment"><div class="who">Ben</div>I like something that combines one and three.</div>
+  <div class="hero-preview">
+    <p class="roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
+    <div class="motif-area">
+      <svg width="280" height="90" viewBox="0 0 280 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 60 C45 70, 65 45, 90 52 C115 58, 125 30, 140 42 C155 54, 170 28, 185 38 C200 48, 220 32, 245 40 C255 44, 260 36, 265 32" stroke="rgba(255,255,255,0.06)" stroke-width="0.7" stroke-dasharray="4 6" fill="none"/>
+        <circle cx="20" cy="60" r="1" fill="rgba(255,255,255,0.07)"/>
+        <circle cx="50" cy="60" r="1.5" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="75" cy="48" r="1" fill="rgba(255,255,255,0.09)"/>
+        <circle cx="100" cy="52" r="2" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="120" cy="42" r="1.5" fill="rgba(255,255,255,0.12)"/>
+        <circle cx="140" cy="42" r="3" fill="rgba(255,255,255,0.22)"/>
+        <circle cx="140" cy="36" r="1.8" fill="rgba(255,255,255,0.16)"/>
+        <circle cx="140" cy="48" r="1.8" fill="rgba(255,255,255,0.16)"/>
+        <line x1="140" y1="30" x2="140" y2="55" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+        <path d="M140 42 C132 28, 108 16, 92 22" stroke="rgba(255,255,255,0.14)" stroke-width="1" fill="none"/>
+        <path d="M140 42 C130 30, 102 20, 84 28" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" fill="none"/>
+        <path d="M140 42 C134 32, 115 22, 100 24" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+        <path d="M140 42 C132 52, 114 60, 105 56" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
+        <path d="M140 42 C130 54, 110 64, 98 60" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+        <circle cx="92" cy="22" r="2" fill="rgba(255,255,255,0.11)"/>
+        <circle cx="84" cy="28" r="1.5" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="105" cy="56" r="1.5" fill="rgba(255,255,255,0.09)"/>
+        <circle cx="112" cy="30" r="1" fill="rgba(255,255,255,0.07)"/>
+        <circle cx="118" cy="48" r="1" fill="rgba(255,255,255,0.07)"/>
+        <path d="M140 42 C148 28, 172 16, 188 22" stroke="rgba(255,255,255,0.14)" stroke-width="1" fill="none"/>
+        <path d="M140 42 C150 30, 178 20, 196 28" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" fill="none"/>
+        <path d="M140 42 C146 32, 165 22, 180 24" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+        <path d="M140 42 C148 52, 166 60, 175 56" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
+        <path d="M140 42 C150 54, 170 64, 182 60" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" fill="none"/>
+        <circle cx="188" cy="22" r="2" fill="rgba(255,255,255,0.11)"/>
+        <circle cx="196" cy="28" r="1.5" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="175" cy="56" r="1.5" fill="rgba(255,255,255,0.09)"/>
+        <circle cx="168" cy="30" r="1" fill="rgba(255,255,255,0.07)"/>
+        <circle cx="162" cy="48" r="1" fill="rgba(255,255,255,0.07)"/>
+        <path d="M140 36 C136 26, 130 16, 126 10" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" fill="none"/>
+        <path d="M140 36 C144 26, 150 16, 154 10" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" fill="none"/>
+        <circle cx="126" cy="10" r="1.5" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="154" cy="10" r="1.5" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="140" cy="42" r="16" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" fill="none"/>
+        <circle cx="140" cy="42" r="28" stroke="rgba(255,255,255,0.03)" stroke-width="0.5" fill="none"/>
+        <circle cx="160" cy="32" r="1.5" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="185" cy="38" r="1.5" fill="rgba(255,255,255,0.09)"/>
+        <circle cx="210" cy="36" r="1" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="235" cy="38" r="1" fill="rgba(255,255,255,0.07)"/>
+        <circle cx="265" cy="32" r="0.8" fill="rgba(255,255,255,0.05)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ITERATION 6: Three sacred geometry + butterfly options (C1, C2, C3) -->
+<div class="iteration">
+  <p class="iter-label">Iteration 6 — Three Options</p>
+  <div class="comment"><div class="who">Ben</div>I think I like the third one energetically. Make three from that, and bring in some butterfly energy.</div>
+  <div class="comment"><div class="who">Direction</div>C1: Wing Geometry — arcs as wings. C2: Emergence — butterfly in concentric rings. C3: Flight Path — dots tracing a journey with butterfly pause point.</div>
+</div>
+
+<!-- ITERATION 5: Three base options (A, B, C) -->
+<div class="iteration">
+  <p class="iter-label">Iteration 5 — Three Base Directions</p>
+  <div class="comment"><div class="who">Ben</div>Forget the sticker layering. Try something else — give me three options, different artistic takes.</div>
+  <div class="comment"><div class="who">Direction</div>A: Paint Strokes (her acrylic style). B: Botanical line art (NH nature). C: Sacred Geometry dots (spiritual practice). Ben picked C.</div>
+</div>
+
+<!-- ITERATION 4: Sticker rotation -->
+<div class="iteration">
+  <p class="iter-label">Iteration 4 — Sticker Rotation</p>
+  <div class="comment"><div class="who">Ben</div>rotate(-26deg)</div>
+  <div class="hero-preview">
+    <p class="roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
+    <div class="motif-area">
+      <img src="images/butterfly.png" alt="" style="width:60px; height:auto; opacity:0.85; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2)); transform:rotate(-26deg);">
+    </div>
+  </div>
+</div>
+
+<!-- ITERATION 3: Big + small butterfly layering -->
+<div class="iteration">
+  <p class="iter-label">Iteration 3 — Layered Stickers</p>
+  <div class="comment"><div class="who">Ben</div>Try a big faded one behind the small one, like a shadow.</div>
+  <div class="comment"><div class="who">Result</div>The big one at 190% width overflowed the screen. Tried containing it but clipping looked wrong. Abandoned this direction.</div>
+</div>
+
+<!-- ITERATION 2: Kelley's actual butterfly sticker -->
+<div class="iteration">
+  <p class="iter-label">Iteration 2 — Kelley's Sticker</p>
+  <div class="comment"><div class="who">Kelley</div>Sent her butterfly sticker via iMessage. "Maybe straightened out."</div>
+  <div class="hero-preview">
+    <p class="roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
+    <div class="motif-area">
+      <img src="images/butterfly.png" alt="" style="width:60px; height:auto; opacity:0.85; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2));">
+    </div>
+  </div>
+</div>
+
+<!-- ITERATION 1: Original SVG butterfly -->
+<div class="iteration">
+  <p class="iter-label">Iteration 1 — SVG Placeholder</p>
+  <div class="comment"><div class="who">Kelley (voice memo)</div>"I kind of want to put something else there. I'm not sure what, like a butterfly. I have a sticker of it, but I don't know, like to flare it up a tiny bit."</div>
+  <div class="hero-preview">
+    <p class="roles">SPIRIT MEDIUM <span>&middot;</span> ARTIST</p>
+    <div class="motif-area">
+      <svg viewBox="0 0 120 60" width="70" height="35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 30 C50 10, 20 5, 10 20 C5 28, 15 38, 30 35 C40 33, 50 30, 60 30Z" fill="rgba(255,255,255,0.2)" />
+        <path d="M60 30 C70 10, 100 5, 110 20 C115 28, 105 38, 90 35 C80 33, 70 30, 60 30Z" fill="rgba(255,255,255,0.2)" />
+        <path d="M60 30 C52 35, 30 45, 25 50 C22 53, 28 55, 35 48 C42 42, 52 35, 60 30Z" fill="rgba(255,255,255,0.15)" />
+        <path d="M60 30 C68 35, 90 45, 95 50 C98 53, 92 55, 85 48 C78 42, 68 35, 60 30Z" fill="rgba(255,255,255,0.15)" />
+        <circle cx="60" cy="30" r="2" fill="rgba(255,255,255,0.3)" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
